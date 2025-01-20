@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 100px);
+        grid-gap: 10px;
+        justify-content: center;
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Memory Game</h1>
+    <div>Score: <span id="result">0</span></div>
+    <div class="grid"></div>
+    <script src="index.js"></script>
+  </body>
+</html>
