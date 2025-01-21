@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .game-board {
+        position: relative;
+        width: 400px;
+        height: 300px;
+        background-color: lightgray;
+        border: 2px solid black;
+        overflow: hidden;
+      }
+      .block {
+        position: absolute;
+        width: 50px;
+        height: 20px;
+        background-color: blue;
+      }
+      .paddle {
+        position: absolute;
+        bottom: 10px;
+        left: 175px;
+        width: 100px;
+        height: 20px;
+        background-color: red;
+      }
+      .ball {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: black;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="score">Score: <span id="score">0</span></div>
+    <div class="game-board" id="game-board"></div>
+    <script src="index.js"></script>
+  </body>
+</html>
