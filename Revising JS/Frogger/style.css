@@ -1,0 +1,53 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #eef2f3;
+  margin: 0;
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(9, 50px);
+  grid-template-rows: repeat(9, 50px);
+  gap: 2px;
+  justify-content: center;
+  margin: 20px auto;
+  border: 2px solid #333;
+  width: fit-content;
+}
+
+.grid div {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.frog {
+  background-color: green;
+}
+
+.ending-block {
+  background-color: red;
+}
+
+.starting-block {
+  background-color: blue;
+}
+
+.road {
+  background-color: gray;
+}
+
+.river {
+  background-color: lightblue;
+}
+
+.log {
+  background-color: brown;
+}
+
+.car {
+  background-color: black;
+}
