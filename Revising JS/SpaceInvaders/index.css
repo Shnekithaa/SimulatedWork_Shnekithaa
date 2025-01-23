@@ -1,0 +1,52 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+#game-container {
+  text-align: center;
+}
+
+#grid {
+  display: grid;
+  grid-template-columns: repeat(15, 30px);
+  grid-template-rows: repeat(15, 30px);
+  gap: 2px;
+  margin: 20px auto;
+  width: 450px;
+  height: 450px;
+  background: #222;
+}
+
+.shooter {
+  background: #00ff00;
+}
+
+.invader {
+  background: #ff0000;
+}
+
+.laser {
+  background: yellow;
+}
+
+.boom {
+  background: orange;
+  animation: explode 0.3s ease-out;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
