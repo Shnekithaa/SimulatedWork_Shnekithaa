@@ -1,11 +1,4 @@
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #eef2f3;
-  margin: 0;
-  padding: 20px;
-}
-
+/* General grid styles */
 .grid {
   display: grid;
   grid-template-columns: repeat(9, 50px);
@@ -15,6 +8,7 @@ body {
   margin: 20px auto;
   border: 2px solid #333;
   width: fit-content;
+  background-color: #eef2f3;
 }
 
 .grid div {
@@ -24,16 +18,21 @@ body {
   border: 1px solid #ccc;
 }
 
+/* Frog */
 .frog {
   background-color: green;
-}
-
-.ending-block {
-  background-color: red;
+  border-radius: 50%; 
+  border: 2px solid #004400; 
 }
 
 .starting-block {
   background-color: blue;
+  border: 2px dashed white;
+}
+
+.ending-block {
+  background-color: red;
+  border: 2px dashed white;
 }
 
 .road {
@@ -44,10 +43,73 @@ body {
   background-color: lightblue;
 }
 
-.log {
-  background-color: brown;
-}
-
 .car {
   background-color: black;
+  border: 2px solid white; 
+  width: 40px;
+  height: 30px;
+  margin: auto; 
+  position: relative;
+}
+
+.car::before,
+.car::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.car::before {
+  bottom: -5px;
+  left: 5px; 
+}
+
+.car::after {
+  bottom: -5px;
+  right: 5px; 
+}
+
+.log {
+  background-color: brown;
+  border: 1px solid #654321;
+  width: 40px;
+  height: 20px;
+  margin: auto;
+  border-radius: 5px; 
+}
+
+.power-up {
+  background-color: gold;
+  border-radius: 50%; 
+  animation: bounce 0.5s infinite alternate;
+  border: 2px solid orange;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+.invincible {
+  animation: glowing 1s infinite;
+  background-color: limegreen;
+}
+
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 5px limegreen;
+  }
+  50% {
+    box-shadow: 0 0 15px lime;
+  }
+  100% {
+    box-shadow: 0 0 5px limegreen;
+  }
 }

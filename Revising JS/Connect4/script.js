@@ -1,10 +1,13 @@
 const gameBoard = document.getElementById('game-board');
 const statusText = document.getElementById('status');
+const timerText = document.getElementById('timer');
 
 const rows = 6;
 const cols = 7;
 let currentPlayer = 'player-one';
 let gameActive = true;
+let countdownTimer;
+let timeLeft = 10;
 const squares = [];
 
 function createBoard() {
@@ -12,8 +15,39 @@ function createBoard() {
     const cell = document.createElement('div');
     cell.classList.add('cell');
     cell.dataset.id = i;
+
+    const disc = document.createElement('div');
+    disc.classList.add('disc');
+    cell.appendChild(disc);
+
     gameBoard.appendChild(cell);
     squares.push(cell);
+  }
+}
+
+function startTimer() {
+  clearInterval(countdownTimer);
+  timeLeft = 10;
+  timerText.textContent = `Time Left: ${timeLeft}`;
+
+  countdownTimer = setInterval(() => {
+    timeLeft -= 1;
+    timerText.textContent = `Time Left: ${timeLeft}`;
+
+    if (timeLeft === 0) {
+      clearInterval(countdownTimer);
+      skipTurn();
+    }
+  }, 1000);
+}
+
+function skipTurn() {
+  currentPlayer = currentPlayer === 'player-one' ? 'player-two' : 'player-one';
+  statusText.textContent = `${currentPlayer}'s Turn`;
+  if (currentPlayer === 'player-two') {
+    aiMove();
+  } else {
+    startTimer();
   }
 }
 
@@ -51,24 +85,42 @@ function checkBoard() {
       squares[c]?.classList.contains(currentPlayer) &&
       squares[d]?.classList.contains(currentPlayer)
     ) {
-      statusText.textContent = `${currentPlayer} wins!`;
+      statusText.textContent = `${currentPlayer.replace('-', ' ')} wins! 🎉`;
       gameActive = false;
+
+      clearInterval(countdownTimer);
       return;
     }
   }
 }
 
-function handleClick(e) {
+function aiMove() {
   if (!gameActive) return;
 
-  const cell = e.target;
-  const cellIndex = parseInt(cell.dataset.id);
+  let column;
+  do {
+    column = Math.floor(Math.random() * cols);
+  } while (!isColumnAvailable(column));
 
-  const columnIndex = cellIndex % cols;
+  dropDisc(column);
+}
+
+function isColumnAvailable(column) {
+  for (let row = 0; row < rows; row++) {
+    if (!squares[row * cols + column].classList.contains('taken')) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function dropDisc(column) {
+  if (!gameActive) return;
+
   let dropIndex = -1;
 
   for (let row = rows - 1; row >= 0; row--) {
-    const index = row * cols + columnIndex;
+    const index = row * cols + column;
     if (!squares[index].classList.contains('taken')) {
       dropIndex = index;
       break;
@@ -76,17 +128,34 @@ function handleClick(e) {
   }
 
   if (dropIndex !== -1) {
-    squares[dropIndex].classList.add('taken', currentPlayer);
+    const cell = squares[dropIndex];
+    const disc = cell.querySelector('.disc');
+    disc.style.top = '0';
+    cell.classList.add('taken', currentPlayer);
 
-    checkBoard();
+    setTimeout(() => {
+      checkBoard();
+      if (gameActive) {
+        currentPlayer = currentPlayer === 'player-one' ? 'player-two' : 'player-one';
+        statusText.textContent = `${currentPlayer.replace('-', ' ')}'s Turn`;
 
-    currentPlayer = currentPlayer === 'player-one' ? 'player-two' : 'player-one';
-    if (gameActive) {
-      statusText.textContent = `${currentPlayer}'s Turn`;
-    }
-  } else {
-    alert('Invalid move! Try another column.');
+        if (currentPlayer === 'player-two') {
+          aiMove();
+        } else {
+          startTimer();
+        }
+      }
+    }, 500);
   }
+}
+
+function handleClick(e) {
+  if (!gameActive || currentPlayer === 'player-two') return;
+
+  const cell = e.target.closest('.cell');
+  const column = parseInt(cell.dataset.id) % cols;
+
+  dropDisc(column);
 }
 
 function addListeners() {
@@ -97,3 +166,4 @@ function addListeners() {
 
 createBoard();
 addListeners();
+startTimer();

@@ -6,27 +6,28 @@ const playerScoreDisplay = document.getElementById("player-score");
 const computerScoreDisplay = document.getElementById("computer-score");
 const resetBtn = document.getElementById("reset");
 
+const winSound = new Audio("win.mp3");
+const loseSound = new Audio("lose.mp3");
+const tieSound = new Audio("tie.mp3");
+
 let playerScore = 0;
 let computerScore = 0;
 
 function getComputerChoice() {
   const choices = ["rock", "paper", "scissors"];
-  const randomIndex = Math.floor(Math.random() * choices.length);
-  return choices[randomIndex];
+  return choices[Math.floor(Math.random() * choices.length)];
 }
 
 function determineWinner(playerChoice, computerChoice) {
-  if (playerChoice === computerChoice) {
-    return "tie";
-  } else if (
+  if (playerChoice === computerChoice) return "tie";
+  if (
     (playerChoice === "rock" && computerChoice === "scissors") ||
     (playerChoice === "scissors" && computerChoice === "paper") ||
     (playerChoice === "paper" && computerChoice === "rock")
   ) {
     return "player";
-  } else {
-    return "computer";
   }
+  return "computer";
 }
 
 function playGame(playerChoice) {
@@ -35,22 +36,23 @@ function playGame(playerChoice) {
 
   if (winner === "tie") {
     resultDisplay.textContent = `It's a tie! You both chose ${playerChoice}.`;
+    tieSound.play();
   } else if (winner === "player") {
-    resultDisplay.textContent = `You win! Your Choice: ${playerChoice} Computer Choice: ${computerChoice}.`;
+    resultDisplay.textContent = `You win! Your Choice: ${playerChoice}, Computer Choice: ${computerChoice}.`;
     playerScore++;
+    winSound.play();
   } else {
-    resultDisplay.textContent = `You lose! Your Choice: ${playerChoice} Computer Choice: ${computerChoice}.`;
+    resultDisplay.textContent = `You lose! Your Choice: ${playerChoice}, Computer Choice: ${computerChoice}.`;
     computerScore++;
+    loseSound.play();
   }
 
   playerScoreDisplay.textContent = playerScore;
   computerScoreDisplay.textContent = computerScore;
 
-  if (winner === "player") {
-    resultDisplay.classList.add("highlight");
-  } else {
-    resultDisplay.classList.remove("highlight");
-  }
+  const playerButton = document.getElementById(playerChoice);
+  playerButton.classList.add("bounce");
+  setTimeout(() => playerButton.classList.remove("bounce"), 500);
 }
 
 function resetGame() {
@@ -59,7 +61,6 @@ function resetGame() {
   playerScoreDisplay.textContent = playerScore;
   computerScoreDisplay.textContent = computerScore;
   resultDisplay.textContent = "Make your choice!";
-  resultDisplay.classList.remove("highlight");
 }
 
 rockBtn.addEventListener("click", () => playGame("rock"));

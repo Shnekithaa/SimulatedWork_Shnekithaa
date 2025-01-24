@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  button:hover {
+    transform: scale(1.1);
+    background-color: #f0f0f0;
+  }
+  
+  button.bounce {
+    animation: bounce 0.5s ease;
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  #result {
+    font-size: 18px;
+    margin: 20px 0;
+  }
+  
+  #result.highlight {
+    color: green;
+    font-weight: bold;
+  }
+  
+  #player-score, #computer-score {
+    font-weight: bold;
+  }
+  

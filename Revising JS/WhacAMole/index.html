@@ -3,30 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Whac-a-Mole</title>
     <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+
       .grid {
         display: grid;
         grid-template-columns: repeat(3, 100px);
         gap: 10px;
         justify-content: center;
-        margin-top: 50px;
+        margin: 20px auto;
       }
+
       .square {
         width: 100px;
         height: 100px;
         background-color: lightgray;
-        border: 1px solid black;
+        border: 2px solid black;
+        border-radius: 8px;
         position: relative;
       }
+
       .mole {
-        background-image: url("/"); 
-        background-size: cover;
-        background-position: center;
+        background-color: green;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+
+      .bonus-mole {
+        background-color: gold;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        animation: spin 1s infinite linear;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      h2 {
+        margin: 10px 0;
       }
     </style>
   </head>
   <body>
+    <h1>Whac-a-Mole</h1>
     <div class="grid">
       <div class="square" id="1"></div>
       <div class="square" id="2"></div>
